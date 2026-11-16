@@ -6,6 +6,9 @@
 <title>Mais Uma Rep</title>
 <meta name="description" content="Treino com progressão: uma rep a mais de cada vez.">
 <meta name="theme-color" content="#D3302A">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 <style>
 @font-face{font-family:"Barlow";font-weight:400;font-style:normal;font-display:swap;src:url(fonts/barlow-latin-400-normal.woff2) format("woff2")}
@@ -718,6 +721,10 @@ $('#view').addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.
 render();
 
 setSync('local');
+// no site/PWA: guarda o app pra abrir sem internet (dentro do APK do Capacitor não precisa)
+if (!window.Capacitor && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
 </script>
 </body>
 </html>

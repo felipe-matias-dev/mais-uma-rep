@@ -2,7 +2,13 @@
 
 App de treino com progressão: cada treino, uma rep a mais. A barra no topo mostra quanto falta pra superar a última vez.
 
-## Baixar no celular (Android)
+## Site (Netlify)
+
+O `netlify.toml` publica a pasta `www/` como site. No Netlify: **Add new project → Import an existing project → GitHub → mais-uma-rep → Deploy**. Cada commit na `main` atualiza o site sozinho.
+
+Com o site no ar, o [PWABuilder](https://www.pwabuilder.com) gera o APK a partir do link do site.
+
+## Baixar no celular (Android, via GitHub Actions)
 
 **https://github.com/felipe-matias-dev/mais-uma-rep/releases/latest/download/MaisUmaRep.apk**
 

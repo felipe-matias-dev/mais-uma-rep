@@ -1,0 +1,9 @@
+# Netlify: publica a pasta www como site (sem build)
+[build]
+  publish = "www"
+  command = ""
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
