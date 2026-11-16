@@ -1,0 +1,60 @@
+name: Gerar APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apk
+  cancel-in-progress: true
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Copiar o app pro projeto Android
+        run: npx cap sync android
+
+      - name: Compilar o APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease -Pvc=${{ github.run_number }} --no-daemon --stacktrace
+
+      - name: Renomear
+        run: cp android/app/build/outputs/apk/release/app-release.apk MaisUmaRep.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MaisUmaRep-apk
+          path: MaisUmaRep.apk
+
+      - name: Publicar em Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete latest --yes --cleanup-tag || true
+          gh release create latest MaisUmaRep.apk \
+            --target "${{ github.sha }}" \
+            --title "Mais Uma Rep · versão 1.0.${{ github.run_number }}" \
+            --notes "Baixe o MaisUmaRep.apk no celular e toque nele pra instalar. Pra atualizar, é só instalar o novo por cima: seus treinos continuam lá." \
+            --latest

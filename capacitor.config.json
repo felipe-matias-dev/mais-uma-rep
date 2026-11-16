@@ -1,0 +1,8 @@
+{
+  "appId": "dev.felipematias.maisumarep",
+  "appName": "Mais Uma Rep",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#EEF1F4"
+  }
+}

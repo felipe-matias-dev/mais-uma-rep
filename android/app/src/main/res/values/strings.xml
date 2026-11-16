@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Mais Uma Rep</string>
+    <string name="title_activity_main">Mais Uma Rep</string>
+    <string name="package_name">dev.felipematias.maisumarep</string>
+    <string name="custom_url_scheme">dev.felipematias.maisumarep</string>
+</resources>
